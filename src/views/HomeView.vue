@@ -45,30 +45,6 @@ function refresh() {
   fetchData()
 }
 
-function highlightTextContaining(pattern) {
-  const regex = new RegExp(pattern, 'gi')
-  const elements = document.getElementsByTagName('*')
-
-  for (let i = 0; i < elements.length; i++) {
-    const element = elements[i]
-
-    for (let j = 0; j < element.childNodes.length; j++) {
-      const node = element.childNodes[j]
-
-      if (node.nodeType === Node.TEXT_NODE) {
-        const text = node.nodeValue
-        const matches = text.match(regex)
-
-        if (matches) {
-          const highlightedText = document.createElement('span')
-          highlightedText.innerHTML = text.replace(regex, '<span class="highlight">$&</span>')
-          element.replaceChild(highlightedText, node)
-        }
-      }
-    }
-  }
-}
-
 async function fetchData() {
   if (cancelToken.value) {
     cancelToken.value.cancel('Request canceled due to new request.')
