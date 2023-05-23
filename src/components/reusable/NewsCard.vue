@@ -3,22 +3,36 @@ import { defineProps } from 'vue'
 import { formatDateTime } from '../../utilities/helperFunctions'
 
 const props = defineProps({
-  hit: Object
+  hit: {
+    type: Object,
+    required: true,
+    default: () => ({})
+  },
+  searchTerm: {
+    type: String,
+    required: false,
+    default: ''
+  }
 })
 
 function openLink(url) {
   window.open(url, '_blank')
+}
+
+function highlightText(text) {
+  const regex = new RegExp(props.searchTerm, 'gi')
+  return text.replace(regex, '<span style="background-color: yellow">$&</span>')
 }
 </script>
 
 <template>
   <div class="bg-white rounded-md shadow px-4 py-4 my-6 border-b border-primaryLight">
     <p class="text-xs font-light text-gray font-opensans">
-      {{ formatDateTime(hit.created_at) }}
+      {{ formatDateTime(props.hit.created_at) }}
     </p>
 
     <p class="text-2xl font-semibold text-black font-oswald mt-1">
-      {{ hit.title }}
+      <span v-html="highlightText(props.hit.title)"></span>
     </p>
 
     <div class="flex items-center mt-1">
@@ -38,12 +52,12 @@ function openLink(url) {
       </svg>
 
       <p class="text-sm font-light text-gray font-opensans ml-[2px]">
-        {{ hit.author }}
+        <span v-html="highlightText(props.hit.author)"></span>
       </p>
 
       <div class="h-4 bg-gray w-[1px] mx-2" />
 
-      <p class="text-sm font-light text-gray font-opensans">{{ hit.points }} points</p>
+      <p class="text-sm font-light text-gray font-opensans">{{ props.hit.points }} points</p>
 
       <div class="h-4 bg-gray w-[1px] mx-2" />
 
@@ -63,14 +77,14 @@ function openLink(url) {
       </svg>
 
       <p class="text-sm font-light text-gray font-opensans ml-[2px]">
-        {{ hit.num_comments }}
+        {{ props.hit.num_comments }}
       </p>
     </div>
 
     <button
-      v-if="hit?.url"
+      v-if="props.hit?.url"
       class="flex bg-primaryLight rounded px-3 py-2 outline-none mt-3"
-      @click="openLink(hit.url)"
+      @click="openLink(props.hit.url)"
     >
       <p class="text-xs font-normal font-opensans text-white mr-1">Open Story</p>
 

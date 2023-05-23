@@ -218,7 +218,7 @@ async function fetchData() {
 
         <div v-if="!loading && data?.hits.length > 0">
           <div v-for="(hit, index) in data?.hits" :key="index">
-            <news-card :hit="hit" />
+            <news-card :hit="hit" :search-term="searchTerm" />
           </div>
 
           <div class="bg-white py-3 my-2 border-t border-primaryLight">
