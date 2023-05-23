@@ -108,7 +108,7 @@ async function fetchData() {
     <navbar />
     <!-- content -->
     <div class="w-full flex flex-col items-center">
-      <div class="md:w-4/6 px-4 py-6 md:min-h-[660px] min-h-[715px] w-full flex flex-col">
+      <div class="md:w-4/6 px-4 py-6 min-h-screen w-full flex flex-col">
         <div class="flex justify-between items-center">
           <div class="w-[40%]">
             <div class="relative inline-block text-left">
